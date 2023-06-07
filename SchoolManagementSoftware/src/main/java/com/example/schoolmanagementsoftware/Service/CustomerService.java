@@ -29,21 +29,20 @@ public class CustomerService {
             return customerRepository.save(customer);
         }
 
-        public Customer getOrderItemById(Integer id, @Valid Customer customer) {
+        public Customer getCustomer(Integer id, @Valid Customer customer) {
             return (Customer)  customerRepository.findById(id).orElse(null);
         }
 
     public void addCustomer(Customer customer) {
     }
 
-    public void updateCustomer(Integer id, Customer customer) {
+    public void updateCustomer(Integer integer, Customer customer) {
     }
 
-    public void deleteCustomer(Integer id) {
+    public void deleteCustomer(Integer integer) {
     }
 
-    public void getAllCustomer(Integer id) {
+    public void getAllCustomer(Integer integer) {
     }
 }
-
 
