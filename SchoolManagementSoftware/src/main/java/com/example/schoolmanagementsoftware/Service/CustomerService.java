@@ -13,14 +13,15 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
         private final ProductService productService;
-  
+    private String name;
+
     public CustomerService(CustomerRepository orderItemRepository, ProductService productService) {
         this.customerRepository = orderItemRepository;
         this.productService = productService;
     }
 
     public Customer customer(double productId) {
-        Product product = productService.getProductById();
+        Product product = productService.getProductByName(name);
             Customer customer = new Customer();
             customer.setId(product.getId());
             customer.setPassword(String.valueOf(false));
@@ -41,7 +42,8 @@ public class CustomerService {
     public void deleteCustomer(Integer id) {
     }
 
-    public Object getAllCustomer(Integer id) {
+    public void getAllCustomer(Integer id) {
     }
 }
+
 
