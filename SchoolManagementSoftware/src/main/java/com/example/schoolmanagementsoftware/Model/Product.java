@@ -19,16 +19,16 @@ import java.util.Set;
 @NoArgsConstructor
     public class Product {
         @Id
-        @GeneratedValue(generator = "id_pro_seq", strategy = GenerationType.SEQUENCE)
-        @SequenceGenerator(name = "id", sequenceName = "id_pro_seq", initialValue = 1, allocationSize = 1)
+        @GeneratedValue(generator = "idProduct", strategy = GenerationType.SEQUENCE)
+        @SequenceGenerator(name = "id", sequenceName = "idProduct", initialValue = 1, allocationSize = 1)
         private Integer id;
 
 
         @Column(columnDefinition = "varchar(60) unique")
-        @NotEmpty(message = " must be not empty")
+        @NotEmpty(message = "name not empty")
         private String name;
 
-        @NotNull(message = "must be not null")
+        @NotNull(message = "price not null")
         @Column(columnDefinition = "FLOAT")
         @Positive
         private Double price;
