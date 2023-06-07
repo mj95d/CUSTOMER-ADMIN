@@ -22,22 +22,22 @@ import java.util.*;
 @Getter
 public class Customer implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_user_seq")
-    @SequenceGenerator(name = "id_user_seq", sequenceName = "id_user_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idUser")
+    @SequenceGenerator(name = "idUser", sequenceName = "idUser", initialValue = 1, allocationSize = 1)
     private Integer id;
 
-    @NotEmpty(message = "Username must not be empty")
+    @NotEmpty(message = "Username not be empty")
     @Column(unique = true, columnDefinition = "varchar(100)")
     private String username;
 
-    @NotEmpty(message = "Password must not be empty")
-    @Pattern(regexp = "(.^|!|&||&||^!^||&||&|!|^.)", message = "be at least 10 character")
+    @NotEmpty(message = "Password not be empty")
+    @Pattern(regexp = "(.^|!|&||&||^!^||&||&|!|^.)", message = "be at least 10 character,\"^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$\")")
     @NotEmpty(message = "must not be empty")
     private String password;
 
 
-    @Column(columnDefinition = "varchar(50) check(role in ('CUSTOMER', 'ADMIN'))")
-    @NotEmpty(message = "must not be empty")
+    @Column(columnDefinition = "varchar(50) check(role in ('ADMIN', 'CUSTOMER'))")
+    @NotEmpty(message = "role not be empty")
     private String role;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
