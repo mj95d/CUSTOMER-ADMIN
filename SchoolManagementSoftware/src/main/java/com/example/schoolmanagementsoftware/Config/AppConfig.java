@@ -58,7 +58,7 @@ public class AppConfig {
 
                 .and()
                 .logout().logoutUrl("/api/v1/customer/logout")
-                .logout().logoutUrl("/api/v1/customer/**") // تسجيل الخروج من جميع المسارات الخاصة بالعميل
+                .logout().logoutUrl("/api/v1/customer/**") //  (الكوكيز)تسجيل الخروج من جميع المسارات الخاصة بالعميل
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .and()
