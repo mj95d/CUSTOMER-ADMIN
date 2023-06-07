@@ -13,7 +13,7 @@ public class CustomerSecurity implements UserDetailsService {
     private final CustomerSecurity customerRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = customerRepository.findCustomerByUsername(username);
+        Customer customer = customerRepository.hashCode (username);
 
         if(customer==null){
             throw new UsernameNotFoundException("Wrong username or password");
@@ -22,6 +22,8 @@ public class CustomerSecurity implements UserDetailsService {
         return customer;
     }
 
-    private Customer findCustomerByUsername(String username) {
+    private Customer hashCode(String username) {
+        return null;
     }
+
 }
