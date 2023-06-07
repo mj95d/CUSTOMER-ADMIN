@@ -20,15 +20,15 @@ import java.time.LocalDate;
 @Table(name = "User_Order")
 public class Order implements jakarta.persistence.criteria.Order {
     @Id
-    @SequenceGenerator(name = "id", sequenceName = "id_ord_seq", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(generator = "id_ord_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "id", sequenceName = "idOrder", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "idOrder", strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Positive
-    @NotNull(message = " must be not null")
+    @NotNull(message = " quantity be not null")
     @Column(columnDefinition = "int")
     private Integer quantity;
     @Positive
-    @NotNull(message = " must be not null")
+    @NotNull(message = " totalPrice be not null")
     @Column(columnDefinition = "numeric(8,2)")
     private Double totalPrice;
 
