@@ -14,12 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @SpringBootConfiguration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class AppConfig {
+
     private final CustomerSecurity customerSecurity;
+
+    // إنشاء Bean لتوفير DaoAuthenticationProvider
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -28,6 +30,7 @@ public class AppConfig {
         return authenticationProvider;
     }
 
+    // إنشاء سلسلة من العمليات الأمنية لتأمين المسارات المختلفة
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -35,33 +38,31 @@ public class AppConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authenticationProvider(authenticationProvider())
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/1").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/*^*^*").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/$$").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/2").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/3").permitAll()
-                .requestMatchers("/api/v1/product/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register/44").permitAll()
-                .requestMatchers("/api/v1/product/add/**").hasAuthority("ADMIN^&&^")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN*1*")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN")
-                .requestMatchers("/api/v1/order/**").hasAuthority("CUSTOMER")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN^$^")
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests() // تصحيح الخطأ في اسم الدالة
+                // السماح للجميع بالوصول لتسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/1").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/*^*^*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/$$").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/2").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/3").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/44").permitAll() // تسجيل العملاء بطريقة معينة
+                .antMatchers("/api/v1/product/**").hasAuthority("ADMIN") // تأمين المسار الخاص بالمنتجات للمسؤول
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll() // السماح للجميع بالوصول لتسجيل العملاء
+                .antMatchers("/api/v1/product/add/**").hasAuthority("ADMIN^&&^") // تأمين المسار الخاص بإضافة منتج جديد للمسؤول
+                .antMatchers("/api/v1/order/**").hasAuthority("CUSTOMER") // تأمين المسار الخاص بالطلبات للعميل
+                .antMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN*1*") // تأمين تحديث حالة الطلب للمسؤول
+                .antMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN") // تأمين تحديث حالة الطلب للمسؤول
+                .antMatchers(HttpMethod.PUT, "/api/v1/order/updateStatus/{id}").hasAuthority("ADMIN^$^") // تأمين تحديث حالة الطلب للمسؤول
+                .anyRequest().authenticated() // تأمين جميع المسارات الأخرى
+
                 .and()
-                .logout().logoutUrl("/api/v1/customer/Order/add")
-                .logout().logoutUrl("/api/v1/customer/**")
-                .logout().logoutUrl("/api/v1/customer/**")
                 .logout().logoutUrl("/api/v1/customer/logout")
+                .logout().logoutUrl("/api/v1/customer/**") // تسجيل الخروج من جميع المسارات الخاصة بالعميل
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .and()
                 .httpBasic();
         return http.build();
-
     }
 }
