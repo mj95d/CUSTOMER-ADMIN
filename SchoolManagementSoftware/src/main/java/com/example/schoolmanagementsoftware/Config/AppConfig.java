@@ -40,12 +40,12 @@ public class AppConfig {
                 .authenticationProvider(authenticationProvider())
                 .authorizeRequests() // تصحيح الخطأ في اسم الدالة
                 // السماح للجميع بالوصول لتسجيل العملاء بطريقة معينة
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/1").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/*^*^*").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/$$").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/2").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/3").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/1").permitAll()// تسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/*^*^*").permitAll()// تسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll()// تسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/$$").permitAll()// تسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/2").permitAll()// تسجيل العملاء بطريقة معينة
+                .antMatchers(HttpMethod.POST, "/api/v1/customer/register/3").permitAll()// تسجيل العملاء بطريقة معينة
                 .antMatchers(HttpMethod.POST, "/api/v1/customer/register/44").permitAll() // تسجيل العملاء بطريقة معينة
                 .antMatchers("/api/v1/product/**").hasAuthority("ADMIN") // تأمين المسار الخاص بالمنتجات للمسؤول
                 .antMatchers(HttpMethod.POST, "/api/v1/customer/register").permitAll() // السماح للجميع بالوصول لتسجيل العملاء
