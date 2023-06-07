@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-@RestController
+estController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
@@ -17,7 +17,7 @@ public class CustomerController {
 
     @GetMapping("/getAll")
     public ResponseEntity getAllCustomer(@AuthenticationPrincipal Customer customerId){
-        return ResponseEntity.status(200).body(this.customerService.getAllCustomer(customerId.getId()));
+        return ResponseEntity.status(200).body("customer getAll");
     }
 
     @PostMapping("/register")
