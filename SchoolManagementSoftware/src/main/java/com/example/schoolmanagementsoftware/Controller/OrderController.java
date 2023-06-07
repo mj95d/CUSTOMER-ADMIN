@@ -22,7 +22,7 @@ public class OrderController {
 
         @GetMapping( "/getAll" )
         public ResponseEntity getAllOrder(@AuthenticationPrincipal Customer customerId) {
-            return ResponseEntity.status(200).body(this.orderService.getAllOrder(customerId.getId()));
+            return ResponseEntity.status(200).body(this.orderService.getOrderById(customerId.getId()));
         }
 
         @PostMapping( "/add" )
@@ -51,7 +51,7 @@ public class OrderController {
 
         @GetMapping( "/get/order/{id}" )
         public ResponseEntity update(@AuthenticationPrincipal Customer customerId, @PathVariable int id) {
-            Order order = this.orderService.getOrderById(customerId.getId(), id);
+            Order order = this.orderService.getOrderById(customerId.getId());
             return ResponseEntity.status(200).body(order);
         }
     }
